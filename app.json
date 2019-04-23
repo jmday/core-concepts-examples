@@ -1,6 +1,6 @@
 {
-  "name": "HelloValid",
-  "description": "A simple hApp which validates that an entry contains 'Hello'",
+  "name": "HelloBlog",
+  "description": "A simple hApp for saying 'Hello' to others in a blog",
   "authors": [
     {
       "identifier": "Jamison M. Day <jamison.day@holo.host>",
