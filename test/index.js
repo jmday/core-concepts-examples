@@ -15,27 +15,27 @@ const instanceBob = Config.instance(agentBob, dna)
 // Define our scenario with alice and bob
 const scenario = new Scenario([instanceAlice, instanceBob])
 
-scenario.runTape("post & get a private message", async (t, { alice, bob }) => {
+scenario.runTape("post & get a public message", async (t, { alice, bob }) => {
 
   // A private message
-  const message_string = "Hello, Alice, but not Bob!"
+  const message_string = "Hello, Alice and Bob!"
   const message = {"content": message_string};
 
-  // Alice creates a private message
-  const addr = alice.call("message_zome", "create_message", { message_string })
+  // Alice creates a public message
+  const addr = await alice.callSync("message_zome", "create_message", { message_string })
   console.log("Alice's Message Address:", addr)
 
-  // Alice can retrieve the message since it is in her source chain
-  const resultAlice = alice.call("message_zome", "get_message", {"address": addr.Ok})
+  // Alice can retrieve the message (from her source chain)
+  const resultAlice = await alice.callSync("message_zome", "get_message", {"address": addr.Ok})
   console.log("Alice's Result:", resultAlice)
 
-  // Bob can't retrieve the message since it is not in the DHT
-  const resultBob = bob.call("message_zome", "get_message", {"address": addr.Ok})
+  // Bob can retrieve the message (from the DHT)
+  const resultBob = await bob.callSync("message_zome", "get_message", {"address": addr.Ok})
   console.log("Bob's Result:", resultBob)
   
   // check for Alice's equality of the actual and expected results
   t.deepEqual(resultAlice, { Ok: message })
   // check that Bob get's the proper error
-  t.deepEqual(resultBob, { Err: { Internal: 'No entry at this address' } })
+  t.deepEqual(resultBob, { Ok: message })
 
 })

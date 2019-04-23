@@ -30,8 +30,8 @@ pub struct MessageEntry {
 fn message_entry_definition() -> ValidatingEntryType {
     entry!(
         name: "message_entry",
-        description: "A *PRIVATE* message entry",
-        sharing: Sharing::Private,
+        description: "A *PUBLIC* message entry",
+        sharing: Sharing::Public,
         validation_package: || {
             hdk::ValidationPackageDefinition::Entry
         },
