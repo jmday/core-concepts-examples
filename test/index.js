@@ -4,7 +4,7 @@ const { Config, Scenario } = require("@holochain/holochain-nodejs")
 Scenario.setTape(require("tape"))
 
 // Create a reference to our DNA microservice
-const dnaPath = "./dist/HelloValid.dna.json"
+const dnaPath = "./dist/core-concepts-examples.dna.json"
 const dna = Config.dna(dnaPath)
 // Create an agent, alice, within our DNA microservice
 const agentAlice = Config.agent("alice")
