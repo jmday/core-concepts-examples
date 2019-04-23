@@ -15,7 +15,7 @@ scenario.runTape("description of example test", async (t, { alice }) => {
 
   // Make a call to a Zome function
   // Call get_message within message_zome, pass no parameters
-  const result = alice.call("message_zome", "get_message", {})
+  const result = await alice.callSync("message_zome", "get_message", {})
   console.log("Result:", result)
 
   // check for equality of the actual and expected results
