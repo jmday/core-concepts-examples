@@ -22,15 +22,15 @@ scenario.runTape("post & get a private message", async (t, { alice, bob }) => {
   const message = {"content": message_string};
 
   // Alice creates a private message
-  const addr = alice.call("message_zome", "create_message", { message_string })
+  const addr = await alice.callSync("message_zome", "create_message", { message_string })
   console.log("Alice's Message Address:", addr)
 
   // Alice can retrieve the message since it is in her source chain
-  const resultAlice = alice.call("message_zome", "get_message", {"address": addr.Ok})
+  const resultAlice = await alice.callSync("message_zome", "get_message", {"address": addr.Ok})
   console.log("Alice's Result:", resultAlice)
 
   // Bob can't retrieve the message since it is not in the DHT
-  const resultBob = bob.call("message_zome", "get_message", {"address": addr.Ok})
+  const resultBob = await bob.callSync("message_zome", "get_message", {"address": addr.Ok})
   console.log("Bob's Result:", resultBob)
   
   // check for Alice's equality of the actual and expected results
