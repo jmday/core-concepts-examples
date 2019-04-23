@@ -3,7 +3,7 @@
 const { Config, Scenario } = require("@holochain/holochain-nodejs")
 Scenario.setTape(require("tape"))
 
-const dnaPath = "./dist/HelloHolo.dna.json"
+const dnaPath = "./dist/core-concepts-examples.dna.json"
 const dna = Config.dna(dnaPath)
 
 const agentAlice = Config.agent("alice")
