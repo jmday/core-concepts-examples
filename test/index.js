@@ -32,14 +32,6 @@ scenario.runTape("post 2 & get all messages", async (t, { alice, bob, carol }) =
   console.log(addrBob)
 
   // Carol gets all the messages
-  const resultAlice = await alice.callSync("message_zome", "get_all_blog_messages", {})
-  console.log(resultAlice)
-
-  // Carol gets all the messages
-  const resultBob = await bob.callSync("message_zome", "get_all_blog_messages", {})
-  console.log(resultBob)
-
-  // Carol gets all the messages
   const resultCarol = await carol.callSync("message_zome", "get_all_blog_messages", {})
   console.log(resultCarol)
 
