@@ -13,6 +13,7 @@ use hdk::{
     error::ZomeApiResult,
 };
 use hdk::holochain_core_types::{
+    validation::EntryValidationData,
     cas::content::Address,
     entry::Entry,
     dna::entry_types::Sharing,
@@ -36,8 +37,19 @@ fn message_entry_definition() -> ValidatingEntryType {
             hdk::ValidationPackageDefinition::Entry
         },
 
-        validation: | _validation_data: hdk::EntryValidationData<MessageEntry>| {
-            Ok(())
+        validation: | validation_data: hdk::EntryValidationData<MessageEntry>| {
+            match validation_data {
+                EntryValidationData::Create{entry,validation_data:_} => {
+                    if entry.content.contains("Hello") {
+                        Ok(())
+                    } else {
+                        Err("Messages must contain \"Hello\".".to_string())
+                    }
+                }
+                _ => {
+                    Err("Messages can not be deleted or modified.".to_string())
+                }
+            }
         }
     )
 }
