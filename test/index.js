@@ -25,14 +25,14 @@ scenario.runTape("post & get a private message", async (t, { alice, bob }) => {
   const addr = alice.call("message_zome", "create_message", { message_string })
   console.log("Alice's Message Address:", addr)
 
-  // Bob can't retrieve the message since it is not in the DHT
-  const resultBob = bob.call("message_zome", "get_message", {"address": addr.Ok})
-  console.log("Bob's Result:", resultBob)
-  
   // Alice can retrieve the message since it is in her source chain
   const resultAlice = alice.call("message_zome", "get_message", {"address": addr.Ok})
   console.log("Alice's Result:", resultAlice)
 
+  // Bob can't retrieve the message since it is not in the DHT
+  const resultBob = bob.call("message_zome", "get_message", {"address": addr.Ok})
+  console.log("Bob's Result:", resultBob)
+  
   // check for Alice's equality of the actual and expected results
   t.deepEqual(resultAlice, { Ok: message })
   // check that Bob get's the proper error
