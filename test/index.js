@@ -22,7 +22,7 @@ scenario.runTape("post & get a private message", async (t, { alice, bob }) => {
   const message = {"content": message_string};
 
   // Alice creates a private message
-  const addr = await alice.callSync("message_zome", "create_message", { message_string })
+  const addr = alice.call("message_zome", "create_message", { message_string })
   console.log("Alice's Message Address:", addr)
 
   // Alice can retrieve the message since it is in her source chain
